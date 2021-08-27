@@ -1,0 +1,26 @@
+import { useState, useEffect } from "react";
+import Link from "next/link";
+
+const AdminNav = () => {
+    const [current, setCurrent] = useState("");
+
+    useEffect(() => {
+        process.browser && setCurrent(window.location.pathname);
+    }, [process.browser && window.location.pathname]);
+
+    return (
+        <div className="nav flex-column nav-pills">
+            <Link href="/admin">
+                <a className={`nav-link ${current === "/admin" && "active"}`}>AdminDashboard</a>
+            </Link>
+            <Link href="/admin/users">
+                <a className={`nav-link ${current === "/admin/users" && "active"}`}>Users</a>
+            </Link>
+            <Link href="/admin/applicants">
+                <a className={`nav-link ${current === "/admin/applicants" && "active"}`}>Applicants</a>
+            </Link>
+        </div>
+    );
+};
+
+export default AdminNav;
