@@ -29,7 +29,6 @@ const CourseEdit = () => {
   const [imageLessonPreview, setImageLessonPreview] = useState("");
   const [uploadButtonText, setUploadButtonText] = useState("Upload Image");
   const [uploadImageButtonText, setuploadImageButtonText] = useState("Upload lesson image");
-
   // state for lessons update
   const [visible, setVisible] = useState(false);
   const [current, setCurrent] = useState({});
@@ -92,6 +91,8 @@ const CourseEdit = () => {
     setImageLessonPreview(window.URL.createObjectURL(file));
     setuploadImageButtonText(file.name);
     setValues({ ...values, loading: true });
+    setVisible(true)
+
     // resize
     Resizer.imageFileResizer(file, 720, 500, "JPEG", 100, 0, async (uri) => {
       try {
@@ -159,6 +160,7 @@ const CourseEdit = () => {
       setuploadImageButtonText("Upload Image");
       setImageLessonPreview({});
       setCurrent({ ...current, lessonimage: {} });
+      setVisible(false);
     } catch (err) {
       console.log(err);
       setValues({ ...values, loading: false });
@@ -364,6 +366,7 @@ const CourseEdit = () => {
           imageLessonPreview={imageLessonPreview}
           progress={progress}
           uploading={uploading}
+          visible={visible}
         />
         {/* <pre>{JSON.stringify(current, null, 4)}</pre> */}
       </Modal>

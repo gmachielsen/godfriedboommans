@@ -48,8 +48,41 @@ const TopNav = () => {
           <a>App</a>
         </Link>
       </Item>
-
-      {user && user.role && user.role.includes("Instructor") ? (
+      {user !== null && (
+        <>
+      {!user.role.includes("Admin") && !user.role.includes("Instructor") && !user.role.includes("Applicant") && !user.role.includes("ApprovedApplicant") &&
+                <Item href="/user/apply/apply">
+                <Link href="/user/apply/apply">
+                  <a>nsnn</a>
+                  </Link>
+                </Item>
+      }
+      {user.role.includes("ApprovedApplicant") && 
+          <Item
+            key="/user/become-instructor"
+            onClick={(e) => setCurrent(e.key)}
+            icon={<TeamOutlined />}
+          >
+            <Link href="/user/become-instructor">
+              <a>Become Instructor</a>
+            </Link>
+          </Item>
+      }
+      {!user.role.includes("Applicant") && (user.role.includes("Instructor") || user.role.includes("Admin")) &&
+              <Item
+                key="/instructor/course/create"
+                onClick={(e) => setCurrent(e.key)}
+                icon={<CarryOutOutlined />}
+              >
+                <Link href="/instructor/course/create">
+                  <a>Create Course</a>
+                </Link>
+              </Item>
+      }
+      </>
+      )}
+    
+      {/* {user && user.role && user.role.includes("Instructor") ? (
                <Item
                key="/instructor/course/create"
                onClick={(e) => setCurrent(e.key)}
@@ -59,7 +92,7 @@ const TopNav = () => {
                  <a>Create Course</a>
                </Link>
              </Item>
-            ) : (
+      ) : (
             <Item
               key="/user/become-instructor"
               onClick={(e) => setCurrent(e.key)}
@@ -69,7 +102,29 @@ const TopNav = () => {
                 <a>Become Instructor</a>
               </Link>
             </Item>
-        )}
+        )} */}
+
+        {/* {user && user.role && user.role.includes("Applicant") ? (
+            <Item
+              key="/user/become-instructor"
+              onClick={(e) => setCurrent(e.key)}
+              icon={<TeamOutlined />}
+            >
+              <Link href="/user/become-instructor">
+                <a>Become Instructor</a>
+              </Link>
+            </Item>
+        ): (
+          <Item
+            key="/h/apply-for-instructor"
+            onClick={(e) => setCurrent(e.key)}
+            icon={<TeamOutlined />}
+          >
+          <Link href="/h/appy-for-instructor">
+            <a>haha</a>
+          </Link>
+        </Item>
+        )} */}
     
 
 
@@ -102,6 +157,13 @@ const TopNav = () => {
                   <a>Dashboard</a>
                 </Link>
               </Item>
+              {!user.role.includes("Admin") && !user.role.includes("Instructor") && !user.role.includes("Applicant") &&
+                <Item href="/user/apply/apply">
+                <Link href="/user/apply/apply">
+                  <a>Apply for Instructor</a>
+                  </Link>
+                </Item>
+              }
               { user && user.role && user.role.includes("Instructor") && (
                   <Item
                     key="/instructor"
@@ -133,6 +195,7 @@ const TopNav = () => {
 
         </SubMenu>
       )}
+
     </Menu>
   );
 };

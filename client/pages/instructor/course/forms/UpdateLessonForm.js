@@ -13,7 +13,8 @@ const UpdateLessonForm = ({
   uploadImageButtonText,
   handleLessonImage,
   imageLessonPreview,
-  handleLessonImageRemove
+  handleLessonImageRemove,
+  visible
 }) => {
   return (
     <div className="container pt-3">
@@ -76,7 +77,7 @@ const UpdateLessonForm = ({
                         {uploadImageButtonText}
                         <input type="file" name="lessonimage" onChange={handleLessonImage} accept="image/*" hidden/>
                     </label>
-                    {imageLessonPreview && (
+                    {imageLessonPreview && visible && (
                         <Badge count="X" onClick={handleLessonImageRemove} className="pointer">
                             <Avatar width={200} src={imageLessonPreview} />
                         </Badge>
