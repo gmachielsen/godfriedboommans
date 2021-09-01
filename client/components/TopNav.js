@@ -157,7 +157,7 @@ const TopNav = () => {
                   <a>Dashboard</a>
                 </Link>
               </Item>
-              {!user.role.includes("Admin") && !user.role.includes("Instructor") && !user.role.includes("Applicant") &&
+              {!user.role.includes("Admin") && !user.role.includes("Instructor") && !user.role.includes("Applicant") && !user.role.includes("ApprovedApplicant") &&
                 <Item href="/user/apply/apply">
                 <Link href="/user/apply/apply">
                   <a>Apply for Instructor</a>

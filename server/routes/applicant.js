@@ -6,8 +6,10 @@ const router = express.Router();
 const { requireSignin } = require("../middlewares");
 
 // controller
-const { makeApplicant } = require("../controllers/applicant");
+const { makeApplicant, getApplicants, approveApplicant } = require("../controllers/applicant");
 
 router.post("/application", requireSignin, makeApplicant);
+router.get("/applicants", requireSignin, getApplicants);
+router.post("/approved-applicant", requireSignin, approveApplicant);
 
 module.exports = router;

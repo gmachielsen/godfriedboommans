@@ -7,6 +7,7 @@ import SingleCourseLessons from "../../components/cards/SingleCourseLessons";
 import { Context } from "../../context";
 import { toast } from "react-toastify";
 import { loadStripe } from "@stripe/stripe-js";
+import LessonCard from "../../components/cards/LessonCard";
 
 const SingleCourse = ({ course }) => {
   // state
@@ -95,14 +96,29 @@ const SingleCourse = ({ course }) => {
         preview={preview}
       />
 
-      {course.lessons && (
+      {/* {course.lessons && (
         <SingleCourseLessons
           lessons={course.lessons}
           setPreview={setPreview}
           showModal={showModal}
           setShowModal={setShowModal}
         />
-      )}
+      )} */}
+            <div className="container">
+              <div className="row">
+                {course.lessons.map((lesson) => (
+                  <div key={lesson._id} className="col-md-6" style={{ textAlign: 'center '}}>
+                    <LessonCard 
+                     lesson={lesson} 
+                     setPreview={setPreview}
+                     showModal={showModal}
+                     setShowModal={setShowModal}
+                    />
+                  </div>
+                  )
+                )}
+              </div>
+            </div>
     </>
   );
 };
