@@ -50,7 +50,8 @@ const courseSchema = new mongoose.Schema({
         default: 9.99,
     },
     image: {},
-    category: String,
+    category: ["Animals", "Landscape", "Portrait", "`Still-life"],
+    level: ["All", "Beginner", "Advanced"],
     published: {
         type: Boolean,
         default: false,

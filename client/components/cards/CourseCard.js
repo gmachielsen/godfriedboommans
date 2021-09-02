@@ -17,7 +17,7 @@ const CourseCard = ({ course }) => {
                         <img
                         src={image.Location}
                         alt={name}
-                        style={{ height: "200px", objectFit: "cover" }}
+                        style={{ height: "500px", objectFit: "cover" }}
                         className="p-1"
                         />
                     }

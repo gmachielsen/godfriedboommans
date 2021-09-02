@@ -1,4 +1,5 @@
 import TopNav from "../components/TopNav";
+import Footer from "../components/Footer";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "antd/dist/antd.css";
 import "../public/css/styles.css";
@@ -11,7 +12,8 @@ function MyApp({ Component, pageProps }) {
     <Provider>
       <ToastContainer position="top-center" />
       <TopNav />
-      <Component {...pageProps} />
+        <Component {...pageProps} />
+      <Footer />
     </Provider>
   );
 }

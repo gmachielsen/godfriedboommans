@@ -38,7 +38,7 @@ const TopNav = () => {
   };
 
   return (
-    <Menu mode="horizontal" selectedKeys={[current]} className="mb-2">
+    <Menu mode="horizontal" selectedKeys={[current]} className="mb-2" style={{ margin: 0, padding: 0, display: "contents"}}>
       <Item
         key="/"
         onClick={(e) => setCurrent(e.key)}
@@ -51,82 +51,37 @@ const TopNav = () => {
       {user !== null && (
         <>
       {!user.role.includes("Admin") && !user.role.includes("Instructor") && !user.role.includes("Applicant") && !user.role.includes("ApprovedApplicant") &&
-                <Item href="/user/apply/apply">
-                <Link href="/user/apply/apply">
-                  <a>nsnn</a>
-                  </Link>
-                </Item>
+        <Item href="/user/apply/apply">
+          <Link href="/user/apply/apply">
+            <a>nsnn</a>
+          </Link>
+        </Item>
       }
       {user.role.includes("ApprovedApplicant") && 
-          <Item
-            key="/user/become-instructor"
-            onClick={(e) => setCurrent(e.key)}
-            icon={<TeamOutlined />}
-          >
-            <Link href="/user/become-instructor">
-              <a>Become Instructor</a>
-            </Link>
-          </Item>
+        <Item
+          key="/user/become-instructor"
+          onClick={(e) => setCurrent(e.key)}
+          icon={<TeamOutlined />}
+        >
+          <Link href="/user/become-instructor">
+            <a>Become Instructor</a>
+          </Link>
+        </Item>
       }
       {!user.role.includes("Applicant") && (user.role.includes("Instructor") || user.role.includes("Admin")) &&
-              <Item
-                key="/instructor/course/create"
-                onClick={(e) => setCurrent(e.key)}
-                icon={<CarryOutOutlined />}
-              >
-                <Link href="/instructor/course/create">
-                  <a>Create Course</a>
-                </Link>
-              </Item>
+        <Item
+          key="/instructor/course/create"
+          onClick={(e) => setCurrent(e.key)}
+          icon={<CarryOutOutlined />}
+        >
+          <Link href="/instructor/course/create">
+            <a>Create Course</a>
+          </Link>
+        </Item>
       }
       </>
       )}
     
-      {/* {user && user.role && user.role.includes("Instructor") ? (
-               <Item
-               key="/instructor/course/create"
-               onClick={(e) => setCurrent(e.key)}
-               icon={<CarryOutOutlined />}
-             >
-               <Link href="/instructor/course/create">
-                 <a>Create Course</a>
-               </Link>
-             </Item>
-      ) : (
-            <Item
-              key="/user/become-instructor"
-              onClick={(e) => setCurrent(e.key)}
-              icon={<TeamOutlined />}
-            >
-              <Link href="/user/become-instructor">
-                <a>Become Instructor</a>
-              </Link>
-            </Item>
-        )} */}
-
-        {/* {user && user.role && user.role.includes("Applicant") ? (
-            <Item
-              key="/user/become-instructor"
-              onClick={(e) => setCurrent(e.key)}
-              icon={<TeamOutlined />}
-            >
-              <Link href="/user/become-instructor">
-                <a>Become Instructor</a>
-              </Link>
-            </Item>
-        ): (
-          <Item
-            key="/h/apply-for-instructor"
-            onClick={(e) => setCurrent(e.key)}
-            icon={<TeamOutlined />}
-          >
-          <Link href="/h/appy-for-instructor">
-            <a>haha</a>
-          </Link>
-        </Item>
-        )} */}
-    
-
 
      {user === null && (
        <>
@@ -201,3 +156,51 @@ const TopNav = () => {
 };
 
 export default TopNav;
+
+
+
+
+
+ {/* {user && user.role && user.role.includes("Instructor") ? (
+               <Item
+               key="/instructor/course/create"
+               onClick={(e) => setCurrent(e.key)}
+               icon={<CarryOutOutlined />}
+             >
+               <Link href="/instructor/course/create">
+                 <a>Create Course</a>
+               </Link>
+             </Item>
+      ) : (
+            <Item
+              key="/user/become-instructor"
+              onClick={(e) => setCurrent(e.key)}
+              icon={<TeamOutlined />}
+            >
+              <Link href="/user/become-instructor">
+                <a>Become Instructor</a>
+              </Link>
+            </Item>
+        )} */}
+
+        {/* {user && user.role && user.role.includes("Applicant") ? (
+            <Item
+              key="/user/become-instructor"
+              onClick={(e) => setCurrent(e.key)}
+              icon={<TeamOutlined />}
+            >
+              <Link href="/user/become-instructor">
+                <a>Become Instructor</a>
+              </Link>
+            </Item>
+        ): (
+          <Item
+            key="/h/apply-for-instructor"
+            onClick={(e) => setCurrent(e.key)}
+            icon={<TeamOutlined />}
+          >
+          <Link href="/h/appy-for-instructor">
+            <a>haha</a>
+          </Link>
+        </Item>
+        )} */}

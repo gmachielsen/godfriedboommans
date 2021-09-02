@@ -76,19 +76,27 @@ const SingleCourse = ({ course }) => {
   return (
     <>
       {/* <pre>{JSON.stringify(course, null, 4)}</pre> */}
-      <SingleCourseJumbotron
-        course={course}
-        showModal={showModal}
-        setShowModal={setShowModal}
-        preview={preview}
-        setPreview={setPreview}
-        user={user}
-        loading={loading}
-        handlePaidEnrollment={handlePaidEnrollment}
-        handleFreeEnrollment={handleFreeEnrollment}
-        enrolled={enrolled}
-        setEnrolled={setEnrolled}
-      />
+      <div className="container">
+        <div className="row">
+          <div className="col-12">
+            <SingleCourseJumbotron
+              course={course}
+              showModal={showModal}
+              setShowModal={setShowModal}
+              preview={preview}
+              setPreview={setPreview}
+              user={user}
+              loading={loading}
+              handlePaidEnrollment={handlePaidEnrollment}
+              handleFreeEnrollment={handleFreeEnrollment}
+              enrolled={enrolled}
+              setEnrolled={setEnrolled}
+            />
+          </div>
+        </div>
+
+      </div>
+
 
       <PreviewModal
         showModal={showModal}
@@ -104,10 +112,10 @@ const SingleCourse = ({ course }) => {
           setShowModal={setShowModal}
         />
       )} */}
-            <div className="container">
-              <div className="row">
+            <div className="container" style={{ justifyContent: 'center' }}>
+              <div className="row" style={{ justifyContent: 'center'}}>
                 {course.lessons.map((lesson) => (
-                  <div key={lesson._id} className="col-md-6" style={{ textAlign: 'center '}}>
+                  <div key={lesson._id} className="col-sm-12 col-md-12 col-lg-6" style={{ textAlign: 'center ', float: 'none', margin: 'auto', display: 'contents'}}>
                     <LessonCard 
                      lesson={lesson} 
                      setPreview={setPreview}
