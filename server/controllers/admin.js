@@ -1,11 +1,22 @@
 const user = require("../models/user");
 const User = require("../models/user");
 const Cover = require("../models/cover");
+const { nanoid } = require("nanoid");
+const AWS = require("aws-sdk");
+
+const awsConfig = {
+  accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+  secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+  region: process.env.AWS_REGION,
+  apiVersion: process.env.AWS_API_VERSION,
+};
+
+const S3 = new AWS.S3(awsConfig);
 
 exports.administrator = async (req, res) => {
     try {
         let user = await User.findById(req.user._id).select("-password").exec();
-        if (!user.role.includes("Instructor")) {
+        if (!user.role.includes("Admin")) {
             return res.sendStatus(403);
         } else {
             res.json({ ok: true });
@@ -105,118 +116,141 @@ exports.uploadImage = async (req, res) => {
   };
 
 
-  exports.uploadVideo = async (req, res) => {
-    try {
-      // console.log("req.user._id", req.user._id);
-      // console.log("req.params.instructorId", req.params.instructorId);
-  
-      if (req.user._id != req.params.instructorId) {
-        return res.status(400).send("Unauthorized");
-      }
-  
-      const { video } = req.files;
-      console.log(video);
-      if (!video) return res.status(400).send("No video");
-  
-      // video params
-      const params = {
-        Bucket: "artacademy",
-        Key: `${nanoid()}.${video.type.split("/")[1]}`, // video/mp4
-        Body: readFileSync(video.path),
-        ACL: "public-read",
-        ContentType: video.type,
-      };
-  
-      // upload to s3
-      S3.upload(params, (err, data) => {
-        if(err) {
-          console.log(err);
-          res.sendStatus(400);
-        }
-        console.log(data);
-        res.send(data);
-      });
-    } catch (err) {
-      console.log(err);
-    }
-  };
-  
-  
-  exports.removeVideo = async (req, res) => {
-    try {
-  
-      if (req.user._id != req.params.instructorId) {
-        return res.status(400).send("Unauthorized");
-      }
-  
-      const { Bucket, Key } = req.body;
-      // console.log(video);
-      // return;
-      // if (!video) return res.status(400).send("No video");
-  
-      // video params
-      const params = {
-        Bucket,
-        Key,
-      };
-  
-      // upload to s3
-      S3.deleteObject(params, (err, data) => {
-        if(err) {
-          console.log(err);
-          res.sendStatus(400);
-        }
-        console.log(data);
-        res.send({ ok: true });
-      });
-    } catch (err) {
-      console.log(err);
-    }
-  };
-  
+exports.uploadVideo = async (req, res) => {
+  try {
+    // console.log("req.user._id", req.user._id);
+    // console.log("req.params.instructorId", req.params.instructorId);
 
-  exports.update = async (req, res) => {
-    try {
-      const id = req.body.id
-      const coverPhoto = await Course.findOne({ id }).exec();
-      console.log("COURSE FOUND => ", coverPhoto);
-    
-      if (req.user._id != user.role === "Admin") {
-        return res.status(400).send("Unauthorized");
-      }
-    
-      const updated = await Course.findOneAndUpdate({slug}, req.body, {
-        new: true,
-      }).exec();
-    
-      res.json(updated);
-    } catch (err) {
-      console.log(err);
-      return res.status(400).send(err.message);
+    if (req.user._id != req.params.instructorId) {
+      return res.status(400).send("Unauthorized");
     }
-  };
-  
 
-  exports.createCoverContent = async (req, res) => {
-    try {
-        const cover = await new Cover({
-            // title: req.body.title,
-            // text: req.body.text,
-            ...req.body,
-        }).save();
+    const { video } = req.files;
+    console.log(video);
+    if (!video) return res.status(400).send("No video");
 
-        res.json(cover);
-    } catch (err) {
+    // video params
+    const params = {
+      Bucket: "artacademy",
+      Key: `${nanoid()}.${video.type.split("/")[1]}`, // video/mp4
+      Body: readFileSync(video.path),
+      ACL: "public-read",
+      ContentType: video.type,
+    };
+
+    // upload to s3
+    S3.upload(params, (err, data) => {
+      if(err) {
         console.log(err);
-        return res.status(400).send("Cover create failed. Try again");
-    }
+        res.sendStatus(400);
+      }
+      console.log(data);
+      res.send(data);
+    });
+  } catch (err) {
+    console.log(err);
   }
+};
+  
+  
+exports.removeVideo = async (req, res) => {
+  try {
 
-  exports.getCoverContent = async (req, res) => {
-    try {
-        const covers = await Cover.find().exec();
-        res.json(covers);
-    } catch(err) {
-        console.log(err);
+    if (req.user._id != req.params.instructorId) {
+      return res.status(400).send("Unauthorized");
     }
+
+    const { Bucket, Key } = req.body;
+    // console.log(video);
+    // return;
+    // if (!video) return res.status(400).send("No video");
+
+    // video params
+    const params = {
+      Bucket,
+      Key,
+    };
+
+    // upload to s3
+    S3.deleteObject(params, (err, data) => {
+      if(err) {
+        console.log(err);
+        res.sendStatus(400);
+      }
+      console.log(data);
+      res.send({ ok: true });
+    });
+  } catch (err) {
+    console.log(err);
   }
+};
+  
+
+exports.update = async (req, res) => {
+  try {
+    const id = req.body.id
+    const coverPhoto = await Course.findOne({ id }).exec();
+    console.log("COURSE FOUND => ", coverPhoto);
+  
+    if (req.user._id != user.role === "Admin") {
+      return res.status(400).send("Unauthorized");
+    }
+  
+    const updated = await Course.findOneAndUpdate({slug}, req.body, {
+      new: true,
+    }).exec();
+  
+    res.json(updated);
+  } catch (err) {
+    console.log(err);
+    return res.status(400).send(err.message);
+  }
+};
+  
+
+exports.createCoverContent = async (req, res) => {
+  try {
+    const {title, text, image} = req.body;
+    console.log(title, text, image, "njdsbgiufiunou");
+
+      const cover = await new Cover({
+          title: req.body.title,
+          text: req.body.text,
+          image: req.body.image,
+  
+      }).save();
+
+      res.json(cover);
+  } catch (err) {
+      console.log(err);
+      return res.status(400).send("Cover create failed. Try again");
+  }
+}
+
+// exports.getCoverContent = async (req, res) => {
+//   try {
+//       const covers = await Cover.find().exec();
+//       res.json(covers);
+//   } catch(err) {
+//       console.log(err);
+//   }
+// }
+
+exports.getCoverContent = async (req, res) => {
+  const all = await Cover.find({ published: true })
+    .exec();
+  res.json(all);
+  console.log(all, "all")
+};
+
+exports.getCover = async (req, res) => {
+  try {
+    const cover = await Cover.find({ published: true }).lean();
+    res.json(cover);
+    console.log(cover, "cover cover");
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+

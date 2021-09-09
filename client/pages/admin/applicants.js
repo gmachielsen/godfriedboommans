@@ -49,21 +49,21 @@ const applicantIndex = () => {
                     </tr>
                 </thead>
                 <tbody>
-                {applicants &&
-                    applicants.map((applicant, index) => (
-                        <tr>
-                        <td>{index + 1}</td>
-                        {/* <td>{applicant._id}</td> */}
-                        <td>{applicant.email}</td>
-                        <td>{applicant.phone}</td>
-                        <td>{applicant.website}</td>
-                        <td>
-                            <button type="submit" className="btn btn-raised" value={applicant._id} onClick={() => handleSubmit(applicant.email)}>Approve</button>
-                        </td>
-                        </tr>
+                    {applicants &&
+                        applicants.map((applicant, index) => (
+                            <tr>
+                            <td>{index + 1}</td>
+                            {/* <td>{applicant._id}</td> */}
+                            <td>{applicant.email}</td>
+                            <td>{applicant.phone}</td>
+                            <td>{applicant.website}</td>
+                            <td>
+                                <button type="submit" className="btn btn-raised" value={applicant._id} onClick={() => handleSubmit(applicant.email)}>Approve</button>
+                            </td>
+                            </tr>
+                            )
                         )
-                    )
-                }
+                    }
                 </tbody>
             </Table>    
        

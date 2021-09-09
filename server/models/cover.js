@@ -1,10 +1,7 @@
 const mongoose = require("mongoose");
 
 const coverSchema = new mongoose.Schema({
-      image: {
-        type: String,
-        required: false,
-      },
+      image: {},
       video: {},
       title: {
           type: String,
@@ -13,9 +10,13 @@ const coverSchema = new mongoose.Schema({
       text: {
           type: String,
           required: false,
-      }
-},
-{ timestamps: true },
+      },
+      published: {
+        type: Boolean,
+        default: false,
+      },
+  },
+  { timestamps: true }
 );
 
 module.exports = mongoose.model("Cover", coverSchema)

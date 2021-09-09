@@ -9,6 +9,8 @@ import {
   UserAddOutlined,
   CarryOutOutlined,
   TeamOutlined,
+  RedditSquareFilled,
+  UserOutlined,
 } from "@ant-design/icons";
 import { Context } from "../context";
 import axios from "axios";
@@ -38,37 +40,40 @@ const TopNav = () => {
   };
 
   return (
-    <Menu mode="horizontal" selectedKeys={[current]} className="mb-2" style={{ margin: 0, padding: 0, display: "contents"}}>
+    <Menu mode="horizontal" selectedKeys={[current]} className="mb-2" >
+      {/* style={{ display: "contents"}} */}
       <Item
         key="/"
         onClick={(e) => setCurrent(e.key)}
-        icon={<AppstoreOutlined />}
+        // icon={<AppstoreOutlined />}
+    
       >
         <Link href="/">
-          <a>App</a>
+          <img src={require("../public/logo.png")} style={{ height: "50px" }} />
+          {/* <a>App</a> */}
         </Link>
       </Item>
       {user !== null && (
         <>
-      {!user.role.includes("Admin") && !user.role.includes("Instructor") && !user.role.includes("Applicant") && !user.role.includes("ApprovedApplicant") &&
+      {/* {!user.role.includes("Admin") && !user.role.includes("Instructor") && !user.role.includes("Applicant") && !user.role.includes("ApprovedApplicant") &&
         <Item href="/user/apply/apply">
           <Link href="/user/apply/apply">
             <a>nsnn</a>
           </Link>
         </Item>
-      }
+      } */}
       {user.role.includes("ApprovedApplicant") && 
         <Item
           key="/user/become-instructor"
           onClick={(e) => setCurrent(e.key)}
-          icon={<TeamOutlined />}
+          // icon={<TeamOutlined />}
         >
           <Link href="/user/become-instructor">
             <a>Become Instructor</a>
           </Link>
         </Item>
       }
-      {!user.role.includes("Applicant") && (user.role.includes("Instructor") || user.role.includes("Admin")) &&
+      {user.role.includes("Instructor") &&
         <Item
           key="/instructor/course/create"
           onClick={(e) => setCurrent(e.key)}
@@ -105,13 +110,23 @@ const TopNav = () => {
      )}
 
       {user !== null && (
-        <SubMenu icon={<CoffeeOutlined />} title={user && user.name} className="float-right">
+        <SubMenu icon={<UserOutlined />} title={user && user.name} className="float-right">
             <ItemGroup>
               <Item key="/user">
                 <Link href="/user">
                   <a>Dashboard</a>
                 </Link>
               </Item>
+              {user && user.role && user.role.includes("Admin") && (
+                  <Item 
+                    key="/admin" onClick={(e) => setCurrent(e.key)}
+                    className="float-right" style={{}}
+                  >
+                    <Link href="/admin">
+                      <a>AdminDashboard</a>
+                    </Link>  
+                  </Item>    
+              )} 
               {!user.role.includes("Admin") && !user.role.includes("Instructor") && !user.role.includes("Applicant") && !user.role.includes("ApprovedApplicant") &&
                 <Item href="/user/apply/apply">
                 <Link href="/user/apply/apply">
@@ -131,16 +146,7 @@ const TopNav = () => {
                     </Link>
                   </Item>
               )}
-              {user && user.role && user.role.includes("Admin") && (
-                  <Item 
-                    key="/admin" onClick={(e) => setCurrent(e.key)}
-                    className="float-right" style={{}}
-                  >
-                    <Link href="/admin">
-                      <a>AdminDashboard</a>
-                    </Link>  
-                  </Item>    
-              )} 
+          
               
               <Item onClick={logout} icon={<LogoutOutlined />} className="float-right" style={{}}>
                 Logout

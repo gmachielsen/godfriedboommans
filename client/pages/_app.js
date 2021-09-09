@@ -11,9 +11,9 @@ function MyApp({ Component, pageProps }) {
   return (
     <Provider>
       <ToastContainer position="top-center" />
-      <TopNav />
+      {/* <TopNav /> */}
         <Component {...pageProps} />
-      <Footer />
+      {/* <Footer /> */}
     </Provider>
   );
 }

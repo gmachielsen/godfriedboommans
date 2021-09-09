@@ -22,7 +22,7 @@ const AdminRoute = ({ children }) => {
     } catch (err) {
       console.log(err);
       setOk(false);
-      router.push("/login");
+      router.push("/");
     }
   };
 

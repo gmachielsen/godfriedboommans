@@ -19,6 +19,9 @@ const AdminNav = () => {
             <Link href="/admin/applicants">
                 <a className={`nav-link ${current === "/admin/applicants" && "active"}`}>Applicants</a>
             </Link>
+            <Link href="/admin/cover">
+                <a className={`nav-link ${current === "/admin/cover" && "active"}`}>CoverContent</a>
+            </Link>
         </div>
     );
 };
