@@ -1,4 +1,5 @@
 import React from "react";
+import { BackTop } from 'antd';
 import { useState, useEffect } from "react";
 import axios from "axios";
 import CourseCard from '../components/cards/CourseCard';
@@ -27,13 +28,14 @@ const Index = ({ courses, covers }) => {
       <div style={{position: 'absolute', width: '100%'}}>
         <TopNav  />
         <div className="cover" style={{ padding: 0, position: 'relative', textAlign: 'center'}}>
-          <h1 className="text-center" style={{ padding: 0, position: 'absolute', left: 0, right: 0, top: '25%', fontSize: '100px', color: 'red'}}>
-            Artacademy
+          <h1 className="text-center" style={{ padding: 0, position: 'absolute', left: 0, right: 0, top: '25%', fontSize: '100px', color: 'white', zIndex: 2 }}>
+            Art Masters Academy
             {/* <img src={require('../../public/coverphoto.jpg')} /> */}
 
-
           </h1>
-          <Cover/>
+          <p style={{ zIndex: 2, fontSize: '20px', color: 'white', textAlign: 'center', position: 'absolute', left: 0, right: 0, top: '65%', }}>mastering art is an art</p>
+
+          <Cover style={{ zIndex: 1 }} />
         </div>
         <div className="container-fluid">
             <div className="row">
@@ -43,6 +45,22 @@ const Index = ({ courses, covers }) => {
                   </div>))}
             </div>
         </div>
+        <div>
+          <h1>ushigs</h1>
+          <h1>ushigs</h1>
+          <h1>ushigs</h1>
+          <h1>ushigs</h1>
+          <h1>ushigs</h1>
+          <h1>ushigs</h1>
+          <h1>ushigs</h1>
+          <h1>ushigs</h1>
+          <h1>ushigs</h1>
+          <h1>ushigs</h1>
+          <h1>ushigs</h1>
+
+        </div>
+        <BackTop />
+        
         <Footer />
       </div>
 
