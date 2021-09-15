@@ -113,7 +113,10 @@ const SingleCourse = ({ course }) => {
         />
       )} */}
             <div className="container" style={{ justifyContent: 'center' }}>
-              <div className="row" style={{ justifyContent: 'center'}}>
+              <div className="row" style={{ justifyContent: 'center', textAlign: 'center'}}>
+                  <h1 style={{ marginTop: '100px', marginBottom: '100px'}}>Course overview</h1>
+              
+
                 {course.lessons.map((lesson) => (
                   <div key={lesson._id} className="col-sm-12 col-md-12 col-lg-6" style={{ textAlign: 'center ', float: 'none', margin: 'auto', display: 'contents'}}>
                     <LessonCard 

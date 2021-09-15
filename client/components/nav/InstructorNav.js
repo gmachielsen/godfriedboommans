@@ -15,6 +15,9 @@ const InstructorNav = () => {
                 <a className={`nav-link ${current === "/instructor" && "active"}`}>Dashboard</a>
             </Link>
             <br></br>
+            <Link href="/instructor/personal-details">
+                <a className={`nav-link ${current === "/instructor/personal-details" && "active"}`}>Personal details</a>
+            </Link>
             <Link href="/instructor/course/create">
                 <a className={`nav-link ${current === "/instructor/course/create" && "active"}`}>Create Course</a>
             </Link>

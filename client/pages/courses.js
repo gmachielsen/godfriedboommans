@@ -6,11 +6,15 @@ import Cover from '../components/cards/Cover';
 import TopNav from "../components/TopNav";
 import Footer from "../components/Footer";
 import Image from 'next/image'
-import { ConsoleSqlOutlined } from "@ant-design/icons";
+import { DownSquareOutlined } from "@ant-design/icons";
+import { Menu, Checkbox } from "antd";
+
 // import museumpic from '../public/coverphoto.jpg'
+const { SubMenu, ItemGroup } = Menu;
 
 const Courses = ({ courses }) => {
 //   const [courses, setCourses] = useState([]);
+const [categories, setCategories] = useState([]);
 
   
 //   useEffect(() => {
@@ -22,17 +26,48 @@ const Courses = ({ courses }) => {
 //     fetchCourses();
 //   }, []);
 
+const showCategories = () =>
+    categories.map((c) => (
+      <div key={c._id}>
+        <Checkbox
+          onChange={handleCheck}
+          className="pb-2 pl-4 pr-4"
+          value={c._id}
+          name="category"
+          checked={categoryIds.includes(c._id)}
+        >
+          {c.name}
+        </Checkbox>
+        <br />
+      </div>
+    ));
     return (
       <>
       <div style={{position: 'absolute', width: '100%'}}>
-        <TopNav />
 
-        <div className="container-fluid">
-            <div className="row">
-                {courses.map((course) => (
-                  <div key={course._id} className="col-sm-12 col-md-6 col-lg-6 col-xl-3">
-                    <CourseCard course={course}/>
-                  </div>))}
+        <div className="container-fluid" style={{ padding: "0"}}>
+            <div className="row" style={{ padding: "15px" }}>
+                <div className="col-sm-12 col-md-12 col-lg-4 col-xl-3 pt-2">
+                  <Menu defaultOpenKeys={["1", "2"]} mode="inline">
+                  <SubMenu
+                      key="3"
+                      title={
+                        <span className="h6">
+                          <DownSquareOutlined /> Categories
+                        </span>
+                      }
+                  >
+                  <div style={{ maringTop: "-10px" }}>{showCategories()}</div>
+            </SubMenu>
+
+                  </Menu>
+                </div>
+                <div className="col-sm-12 col-md-12 col-lg-8 col-xl-9 pt-2">
+                    {courses.map((course) => (
+                    <div key={course._id} className="col-sm-12 col-md-12 col-lg-12 col-xl-4">
+                      <CourseCard course={course}/>
+                    </div>))}
+                </div>
             </div>
         </div>
         <Footer />

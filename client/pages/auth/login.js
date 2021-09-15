@@ -119,7 +119,7 @@ const Login = ({ history }) => {
           autoFocus
         />
       </div>
-
+    <br/>
       <div className="form-group">
         <input
           type="password"
@@ -155,8 +155,9 @@ const Login = ({ history }) => {
           {loading ? (
             <h4 className="text-danger">Loading...</h4>
           ) : (
-            <h4>Login</h4>
+            <h4 className="text-center" style={{ fontFamily: 'serif', fontWeight: 'bold', fontSize: '40px'}}>Login</h4>
           )}
+          <br/><br/>
           {loginForm()}
           <Button
             onClick={googleLogin}

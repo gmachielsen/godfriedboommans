@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Content } from "antd/lib/layout/layout";
 import Link from "next/link";
-import { Button, Modal } from "antd";
+import { Button } from "antd";
 // import { SocialIcon } from 'react-social-icons';
 import { FacebookOutlined } from "@ant-design/icons";
 
@@ -9,7 +9,7 @@ const Footer = () => {
     const [visible, setVisible] = useState(false);
     
     return (
-        <footer style={{ backgroundColor: '#000'}}>
+        <footer style={{ backgroundColor: '#000', fontFamily: 'serif'}}>
                 <section className="newsletter">
                     <div className="container">
                         <div className="row">
@@ -22,28 +22,8 @@ const Footer = () => {
                                     <div className="subscribe input-group mb-3" style={{ justifyContent: 'center'}}>
                                         {/* style={{ justify-content: 'center' }} */}
                                             <div>
-                                                <Button>Inschrijven</Button>
-                                                
-                                            </div>
-                                            <div className="pt-3 pb-3">
-                                                <Modal
-                                                    title="+ Add Cover"
-                                                    centered
-                                                    visible={visible}
-                                                    onCancel={() => setVisible(false)}
-                                                    footer={null}
-                                                >
-                                                <form method="post" style={{display: 'flex'}}>
-                                                        <input type="text" name="email" className="form-control col-12" placeholder="Uw emailadres" aria-label="Recipient's username" aria-describedby="basic-addon2" />
-                                                        <div className="input-group" style={{ width: '5px' }}></div>
-                                                        <div className="input-group-append">
-                                                            <Button className="btn btn-outline-secondary col-12" type="submit" style={{ height: '40px', marginLeft: '5px' }}>Button</Button>
-                                                        </div>
-                                                    </form>
-                                                </Modal>
-                                                </div>
-                                            
-                                        
+                                                <Button href="/user/newsletter">Inschrijven</Button>
+                                            </div>        
                                     </div>
                                 </div>
                             </div>
@@ -55,13 +35,13 @@ const Footer = () => {
           
                             <div className="col-lg-2 col-xl-1 mb-3">
                                 <h6  className="text-uppercase font-weight">
-                                <Link style={{ color: 'red' }} href="/"><p style={{ color: "white" }}>About us</p></Link>
+                                <Link style={{ color: 'red' }} href="/about"><p style={{ color: "white" }}>About us</p></Link>
                                 </h6>
                             </div>
 
                             <div className="col-lg-2 col-xl-1 mb-3">
                                 <h6 className="text-uppercase font-weight">
-                                <Link href="/"><p style={{ color: "white" }}>Courses</p></Link>
+                                <Link href="/courses"><p style={{ color: "white" }}>Courses</p></Link>
                                 </h6>
                             </div>
 
@@ -70,12 +50,12 @@ const Footer = () => {
                                 <Link href="/"><p style={{ color: "white" }}>Instructors</p></Link>
                                 </h6>
                             </div>
-
+{/* 
                             <div className="col-lg-2 col-xl-1 mb-3">
                                 <h6 className="text-uppercase font-weight">
                                 <Link href="/"><p style={{ color: "white" }}>Contact</p></Link>
                                 </h6>
-                            </div> 
+                            </div>  */}
                     
              
  

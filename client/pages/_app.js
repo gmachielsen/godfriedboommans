@@ -6,16 +6,46 @@ import "../public/css/styles.css";
 import {ToastContainer} from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
 import { Provider } from "../context";
+import {useRouter} from 'next/router';
 
 function MyApp({ Component, pageProps }) {
-  return (
-    <Provider>
+  const router = useRouter();
+  const {asPath,route,pathname } = router
+
+  if(asPath === "/"){
+    return (
+       <Provider>
+         <Component {...pageProps} />
+       </Provider>
+    )
+ }else if (asPath === "/admin" || asPath === "/admin/users" || asPath === "/admin/applicants" || asPath === "/admin/cover" || asPath === "/courses" || asPath === "/about" ) {
+    return(
+      <Provider>
       <ToastContainer position="top-center" />
-      {/* <TopNav /> */}
+      <TopNav />
         <Component {...pageProps} />
       {/* <Footer /> */}
-    </Provider>
-  );
+     </Provider>
+    )
+ } else {
+   return (
+    <Provider>
+    <ToastContainer position="top-center" />
+    <TopNav />
+      <Component {...pageProps} />
+    <Footer />
+   </Provider>
+   )
+ }
+
+  // return (
+  //   <Provider>
+  //     <ToastContainer position="top-center" />
+  //     {/* <TopNav /> */}
+  //       <Component {...pageProps} />
+  //     {/* <Footer /> */}
+  //   </Provider>
+  // );
 }
 
 export default MyApp;

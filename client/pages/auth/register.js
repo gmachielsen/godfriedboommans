@@ -42,7 +42,7 @@ const Register = () => {
         <form onSubmit={handleSubmit}>
             <input type="email" className="form-control" value={email} placeholder="Your email" onChange={(e) => setEmail(e.target.value)} autoFocus/>
             <br/>
-            <button type="submit" className="btn btn-raised">Register </button>
+            <button type="submit" className="btn btn-raised" style={{ backgroundColor: 'antiquewhite' }}>Register</button>
         </form>
         );
     
@@ -50,7 +50,8 @@ const Register = () => {
             <div className="container p-5">
                 <div className="row">
                     <div className="col-md-6 offset-md-3">
-                        <h4>Register</h4>
+                        <h4 className="text-center" style={{ fontFamily: 'serif', fontWeight: 'bold', fontSize: '40px'}}>Register</h4>
+                        <br/><br/>
                         {registerForm()}
                     </div>
                 </div>

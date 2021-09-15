@@ -26,8 +26,19 @@ exports.makeInstructor = async (req, res) => {
       accountLink = Object.assign(accountLink, {
         "stripe_user[email]": user.email,
       });
-      // 5. then send the account link as response to fronend
+      // 5. then send the account link as response to frontend
       res.send(`${accountLink.url}?${queryString.stringify(accountLink)}`);
+
+      // then 
+      let { Instructor } = await User.findByIdAndUpdate(
+          user._id,
+          {
+              $pull: { role: "ApprovedApplicant" },
+          },
+          { new: true }
+      )
+        .select("-password")
+        .exec();
     } catch (err) {
       console.log("MAKE INSTRUCTOR ERR ", err);
     }
@@ -58,6 +69,19 @@ exports.makeInstructor = async (req, res) => {
       console.log(err);
     }
   };
+
+  exports.instructorDetails = async (req, res) => {
+    // try {
+    //   let instructor = User.findById(req.user._id).select("-password").exec();
+    //   if(!user.role.includes("Instructor")) {
+    //     return res.sendStatus(403);
+    //   } else {
+    //     res.json({instructor})
+    //   }
+    // } catch (err) {
+    //   console.log(err);
+    // }
+  }
 
   exports.currentInstructor = async (req, res) => {
       try {
@@ -117,5 +141,23 @@ exports.makeInstructor = async (req, res) => {
       res.json(loginLink.url);
     } catch (err) {
       console.log("stripe payout settings login link err => , err");
+    }
+  }
+
+  exports.updateInstructorDetails = async (req, res) => {
+    try {
+      const instructor = await User.findById(req.user._id).exec();
+      if (!instructor.role.includes("Instructor")) {
+        return res.sendStatus(403);
+      } else {
+     
+      const updatedInstructorDetails = await User.findOneAndUpdate(req.user._id, req.body, {
+        new: true,
+      }).exec();
+    
+      res.json(updatedInstructorDetails);
+      }
+    } catch (err) {
+      console.log(err);
     }
   }

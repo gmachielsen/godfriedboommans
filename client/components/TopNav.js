@@ -40,7 +40,7 @@ const TopNav = () => {
   };
 
   return (
-    <Menu mode="horizontal" selectedKeys={[current]} className="mb-2" >
+    <Menu mode="horizontal" selectedKeys={[current]} className="mb-2" style={{ fontFamily: 'serif', fontSize: '17px', fontWeight: '600'}} >
 
       {/* style={{ display: "contents"}} */}
       <Item
@@ -65,14 +65,21 @@ const TopNav = () => {
       </Item>
       {user !== null && (
         <>
-      {/* {!user.role.includes("Admin") && !user.role.includes("Instructor") && !user.role.includes("Applicant") && !user.role.includes("ApprovedApplicant") &&
+                 {/* {!user.role.includes("Admin") && !user.role.includes("Instructor") && !user.role.includes("Applicant") && !user.role.includes("ApprovedApplicant") && user.role.includes("Subscriber")  &&
+                <Item href="/user/apply/apply">
+                <Link href="/user/apply/apply">
+                  <a>Apply for Instructor</a>
+                  </Link>
+                </Item>
+              } */}
+      {/* {user.role.includes("Subscriber") && 
         <Item href="/user/apply/apply">
           <Link href="/user/apply/apply">
-            <a>nsnn</a>
+            <a>apply for instructor</a>
           </Link>
         </Item>
       } */}
-      {user.role.includes("ApprovedApplicant") && 
+      {user.role.includes("ApprovedApplicant") &&
         <Item
           key="/user/become-instructor"
           onClick={(e) => setCurrent(e.key)}
@@ -83,11 +90,11 @@ const TopNav = () => {
           </Link>
         </Item>
       }
-      {user.role.includes("Instructor") &&
+      {user !== null && user.role.includes("Instructor") &&
         <Item
           key="/instructor/course/create"
           onClick={(e) => setCurrent(e.key)}
-          icon={<CarryOutOutlined />}
+          // icon={<CarryOutOutlined />}
         >
           <Link href="/instructor/course/create">
             <a>Create Course</a>
@@ -137,13 +144,7 @@ const TopNav = () => {
                     </Link>  
                   </Item>    
               )} 
-              {!user.role.includes("Admin") && !user.role.includes("Instructor") && !user.role.includes("Applicant") && !user.role.includes("ApprovedApplicant") &&
-                <Item href="/user/apply/apply">
-                <Link href="/user/apply/apply">
-                  <a>Apply for Instructor</a>
-                  </Link>
-                </Item>
-              }
+     
               { user && user.role && user.role.includes("Instructor") && (
                   <Item
                     key="/instructor"

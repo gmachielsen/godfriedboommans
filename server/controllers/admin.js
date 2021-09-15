@@ -1,6 +1,9 @@
 const user = require("../models/user");
 const User = require("../models/user");
 const Cover = require("../models/cover");
+const Category = require("../models/category");
+const slugify = require("slugify");
+
 const { nanoid } = require("nanoid");
 const AWS = require("aws-sdk");
 
@@ -254,3 +257,55 @@ exports.getCover = async (req, res) => {
 }
 
 
+
+exports.createCategory = async (req, res) => {
+  try {
+    const alreadyExist = await Category.findOne({ name: req.body.name.toLowerCase() })
+    if (alreadyExist) return res.status(400).send("Name is taken");
+
+    const category = await new Category({
+      name: req.body.name,
+      slug: slugify(req.body.name),
+    }).save();
+
+    res.json(category)
+
+  } catch (err) {
+    console.log(err);
+    return res.status(400).send("Category created failed. Try again");
+  }
+}
+
+
+// exports.getCategory = async (req, res) => {
+//   try {
+
+//   } catch (err) {
+
+//   }
+// }
+
+exports.putCategory = async (req, res) => {
+  try {
+    const category = await Category.findOne({name: req.body.name.toLowerCase()}).exec();    
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+exports.removeCategory = async (req, res) => {
+  try {
+    const category = await Category.findOneAndDelete({ name: req.body.name.toLowerCase()}).exec();
+  } catch (err) { 
+    console.log(err);
+  }
+}
+
+exports.listCategories = async (req, res) => {
+  try {
+    categories = await Category.find().exec();
+    res.json(categories);
+  } catch (err) {
+    console.log(err);
+  }
+}

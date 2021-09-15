@@ -13,6 +13,7 @@ const CourseCard = ({ course }) => {
             <a>
                 <Card
                     className="mb-4"
+                    style={{ fontFamily: 'serif'}}
                     cover={
                         <img
                         src={image.Location}
@@ -22,7 +23,7 @@ const CourseCard = ({ course }) => {
                         />
                     }
                 >                    
-                    <h2 className="font-weight-bold">{name}</h2>
+                    <h2 style={{ fontWeight: 'normal'}}>{name}</h2>
                     <p>by {instructor.name}</p>
                     <Badge 
                         count={category}

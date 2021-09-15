@@ -9,6 +9,17 @@ const userSchema = new Schema(
       trim: true,
       required: true,
     },
+    surname: {
+      type: String,
+      required: false,
+      default: "surname",
+
+    },
+    artistname: {
+      type: String,
+      required: false,
+      default: "artistname",
+    },
     website: {
       type: String,
       required: false,
@@ -30,7 +41,7 @@ const userSchema = new Schema(
     role: {
       type: [String],
       default: ["Subscriber"],
-      enum: ["Subscriber", "ApprovedApplicant", "Applicant", "Instructor", "Admin"],
+      enum: ["Subscriber", "AbleToApplyForInstructor", "Applicant", "ApprovedApplicant", "Instructor", "Admin"],
     },
     stripe_account_id: "",
     stripe_seller: {},
