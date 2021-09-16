@@ -260,15 +260,19 @@ exports.getCover = async (req, res) => {
 
 exports.createCategory = async (req, res) => {
   try {
-    const alreadyExist = await Category.findOne({ name: req.body.name.toLowerCase() })
-    if (alreadyExist) return res.status(400).send("Name is taken");
+    const { name } = req.body;
+    // const category = await new Category({ name, slug: slugify(name) }).save();
+    res.json(await new Category({ name, slug: slugify(name) }).save());
 
-    const category = await new Category({
-      name: req.body.name,
-      slug: slugify(req.body.name),
-    }).save();
 
-    res.json(category)
+    // const { name } = req.body;
+    // const alreadyExist = await Category.findOne({ name: req.body.name })
+    // if (alreadyExist) return res.status(400).send("Name is taken");
+
+    // const category = await new Category({ name, slug: slugify(name) }).save();
+
+
+    // res.json(category)
 
   } catch (err) {
     console.log(err);
@@ -277,17 +281,17 @@ exports.createCategory = async (req, res) => {
 }
 
 
-// exports.getCategory = async (req, res) => {
-//   try {
+exports.getCategory = async (req, res) => {
+  try {
 
-//   } catch (err) {
+  } catch (err) {
 
-//   }
-// }
+  }
+}
 
 exports.putCategory = async (req, res) => {
   try {
-    const category = await Category.findOne({name: req.body.name.toLowerCase()}).exec();    
+    const category = await Category.findOne({ name: req.body.name }).exec();    
   } catch (err) {
     console.log(err);
   }
@@ -295,7 +299,7 @@ exports.putCategory = async (req, res) => {
 
 exports.removeCategory = async (req, res) => {
   try {
-    const category = await Category.findOneAndDelete({ name: req.body.name.toLowerCase()}).exec();
+    const category = await Category.findOneAndDelete({ name: req.body.name }).exec();
   } catch (err) { 
     console.log(err);
   }
