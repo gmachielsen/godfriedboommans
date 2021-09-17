@@ -11,6 +11,7 @@ import {useRouter} from 'next/router';
 function MyApp({ Component, pageProps }) {
   const router = useRouter();
   const {asPath,route,pathname } = router
+  const { slug } = router.query;
 
   if(asPath === "/"){
     return (
@@ -18,7 +19,17 @@ function MyApp({ Component, pageProps }) {
          <Component {...pageProps} />
        </Provider>
     )
- } else if (asPath === "/admin" || asPath === "/admin/users" || asPath === "/admin/applicants" || asPath === "/admin/cover" || asPath === "/courses" || asPath === "/about" || asPath === "/admin/category" ) {
+ } else if (
+   asPath === "/admin" || 
+   asPath === "/admin/users" || 
+   asPath === "/admin/applicants" || 
+   asPath === "/admin/cover" || 
+   asPath === "/courses" || 
+   asPath === "/about" || 
+   asPath === "/admin/category" || 
+   asPath === "/admin/category/create" ||
+   asPath === `/admin/category/edit/${slug}`
+  ) {
     return(
       <Provider>
       <ToastContainer position="top-center" />

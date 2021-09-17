@@ -113,7 +113,9 @@ const Category = () => {
       <div className="row">
       {categories.map((category) => (
         <div key={category._id} className="col-sm-12">
-            <h1>{category.name}</h1>
+          <hr className="col-8 offset-2" />
+            <h1 className="text-center">{category.name}</h1>
+          <hr className="col-8 offset-2" />
             {/* <p>{category.slug}</p> */}
         </div>))}
       </div>

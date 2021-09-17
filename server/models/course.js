@@ -24,6 +24,16 @@ const lessonSchema = new mongoose.Schema({
         type: Boolean,
         default: false,
     },
+    category: {
+        type: ObjectId,
+        ref: "Category",
+      },
+      subcategories: [
+        {
+          type: ObjectId,
+          ref: "SubCategory",
+        },
+      ],
 },
     { timestamps: true }
 );

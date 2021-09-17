@@ -22,6 +22,11 @@ const {
     putCategory,
     removeCategory,
     listCategories,
+    createSubCategory,
+    getSubCategory,
+    putSubCategory,
+    removeSubCategory,
+    listSubCategories,
 } = require("../controllers/admin");
 router.get("/get-covercontent", getCoverContent)
 
@@ -37,10 +42,19 @@ router.delete("/remove-covervideo", requireSignin, removeVideo);
 
 // categories
 router.post("/admin/create-category", requireSignin, createCategory);
-router.get("/admin/get-category/:categoryId", requireSignin, getCategory);
-router.put("/admin/update-category/:categoryId", requireSignin, putCategory);
-router.delete("/admin/remove-category/:categoryId", requireSignin, removeCategory);
+router.get("/admin/get-category/:slug", requireSignin, getCategory);
+router.put("/admin/update-category/:slug", requireSignin, putCategory);
+router.delete("/admin/remove-category/:slug", requireSignin, removeCategory);
 router.get("/admin/categories", requireSignin, listCategories)
+
+// subcategories
+router.post("/admin/create-subcategory", requireSignin, createSubCategory);
+router.get("/admin/get-subcategory/:slug", requireSignin, getSubCategory);
+router.put("/admin/update-subcategory/:slug", requireSignin, putSubCategory);
+router.delete("/admin/remove-subcategory/:slug", requireSignin, removeSubCategory);
+router.get("/admin/subcategories", requireSignin, listSubCategories);
+
+
 
 // router.get("/getcover", getCover)
 
