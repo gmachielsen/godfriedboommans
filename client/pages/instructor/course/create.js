@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import InstructorRoute from "../../../components/routes/InstructorRoute";
 import CourseCreateForm from "./forms/CourseCreateForm";
@@ -15,12 +15,25 @@ const CourseCreate = () => {
     uploading: false,
     paid: true,
     category: "",
+    subcategories: [],
     loading: false,
   });
   const [image, setImage] = useState({});
   const [preview, setPreview] = useState("");
   const [uploadButtonText, setUploadButtonText] = useState("Upload Image");
+  const [categories, setCategories] = useState([]);
+  const [showSubCategories, setShowSubCategories] = useState(false);
+  const [subOptions, setSubOptions] = useState([]);
 
+
+  useEffect(() => {
+    loadCategories();
+  }, []);
+
+  const loadCategories = async () => {
+    await axios.get("/api/admin/categories")
+    .then((c) => setCategories(c.data));
+   }
   // router
   const router = useRouter();
 
@@ -67,6 +80,18 @@ const CourseCreate = () => {
     }
   };
 
+
+const handleCategoryChange = (e) => {
+    e.preventDefault()
+    console.log('CLICKED CATEGORY', e.target.value);
+    setValues({ ...values, subs: [], category: e.target.value });
+    axios.get(`/api/category/subcategories/${e.target.value}`)
+      .then((res) => {
+        setSubOptions(res.data);
+      });
+    setShowSubCategories(true);
+};
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -83,6 +108,7 @@ const CourseCreate = () => {
 
   };
 
+
   return (
     <InstructorRoute>
       <h1 className="jumbotron text-center square">Create Course</h1>
@@ -96,11 +122,16 @@ const CourseCreate = () => {
           preview={preview}
           uploadButtonText={uploadButtonText}
           handleImageRemove={handleImageRemove}
+          handleCategoryChange={handleCategoryChange}
+
+          categories={categories}
+          showSubCategories={showSubCategories}
+          subOptions={subOptions}
         />
       </div>
-      <pre>{JSON.stringify(values, null, 4)}</pre>
+      {/* <pre>{JSON.stringify(values, null, 4)}</pre> */}
       <hr />
-      <pre>{JSON.stringify(image, null, 4)}</pre>
+      {/* <pre>{JSON.stringify(image, null, 4)}</pre> */}
     </InstructorRoute>
   );
 };

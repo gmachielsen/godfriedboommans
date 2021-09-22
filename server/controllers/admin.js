@@ -288,7 +288,7 @@ exports.getCategory = async (req, res) => {
   try {
     let category = await Category.findOne({ slug: req.params.slug }).exec();
     res.json(category);
-    console.log(category, "category")
+    console.log(category, "category form getCategory")
   } catch (err) {
 
   }
@@ -321,10 +321,10 @@ exports.listCategories = async (req, res) => {
   }
 }
 
-exports.createSubCategory = async (req, res) => {
+exports.createSubcategory = async (req, res) => {
   try {
-    const { name, parent } = req.body;
-    res.json(await new SubCategory({ name, parent, slug: slugify(name) }).save());
+    const { name, category } = req.body;
+    res.json(await new SubCategory({ name, parent: category, slug: slugify(name) }).save());
 
   } catch (err) {
     console.log(err);
@@ -337,6 +337,7 @@ exports.createSubCategory = async (req, res) => {
 
 exports.putSubCategory = async (req, res) => {
   const { name, parent } = req.body;
+  console.log(name, parent, "console.logt die??");
   try {
     const updated = await SubCategory.findOneAndUpdate(
       { slug: req.params.slug },
@@ -352,7 +353,8 @@ exports.putSubCategory = async (req, res) => {
 
 exports.removeSubCategory = async (req, res) => {
   try {
-    const deleted = await Sub.findOneAndDelete({ slug: req.params.slug });
+    console.log("slug????", req.params.slug);
+    const deleted = await SubCategory.findOneAndDelete({ slug: req.params.slug });
     res.json(deleted);
   } catch (err) {
     console.log(err);
@@ -363,19 +365,38 @@ exports.removeSubCategory = async (req, res) => {
 exports.listSubCategories = async (req, res) => 
   res.json(await (SubCategory.find({}).sort({ createdAt: -1 }).exec()));
 
+
   exports.getSubCategory = async (req, res) => {
-  let subcategory = await SubCategory.findOne({ slug: req.params.slug }).exec();
-  const courses = await Course.find({ subcategories: subcategory})
-    .populate("category")
-    .exec();
+    try {
+    let subCategory = await SubCategory.findOne({ slug: req.params.slug }).exec();
+    console.log(subCategory, "<<<<<----- subcategory")
+    res.json(subCategory);
+    } catch (err) {
+      console.log(err);
+    }
+  }
 
-    await new Promise(res => setTimeout(res, 500));
-
-    res.json({
-      subcategory,
-      courses
+exports.getSubs = (req, res) => {
+    SubCategory.find({ parent: req.params.category}).exec((err, subcategories) => {
+        if (err) console.log(err);
+        res.json(subcategories);
     });
-}
+};
+
+//   exports.getSubCategory = async (req, res) => {
+//   const subcategory = await SubCategory.findOne({ slug: req.params.slug }).exec();
+//   console.log(subcategory, "subsonreion o")
+//   const courses = await Course.find({ subcategories: subcategory})
+//     .populate("category")
+//     .exec();
+
+//     await new Promise(res => setTimeout(res, 500));
+
+//     res.json({
+//       subcategory,
+//       courses
+//     });
+// }
 
 
 

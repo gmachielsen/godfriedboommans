@@ -20,6 +20,7 @@ const CourseEdit = () => {
     uploading: false,
     paid: true,
     category: "",
+    subcategories: [],
     loading: false,
     lessons: [],
   });
@@ -40,7 +41,9 @@ const CourseEdit = () => {
   const [progress, setProgress] = useState(0);
   const [uploading, setUploading] = useState(false);
 
-
+  const [categories, setCategories] = useState([]);
+  const [showSubCategories, setShowSubCategories] = useState(false);
+  const [subOptions, setSubOptions] = useState([]);
 
   // router
   const router = useRouter();
@@ -48,9 +51,13 @@ const CourseEdit = () => {
 
   useEffect(() => {
     loadCourse();
+    loadCategories();
   }, [slug]);
 
-
+  const loadCategories = async () => {
+    await axios.get("/api/admin/categories")
+    .then((c) => setCategories(c.data));
+   }
 
   const loadCourse = async () => {
     const { data } = await axios.get(`/api/course/${slug}`);
@@ -113,6 +120,17 @@ const CourseEdit = () => {
     });
   };
 
+
+  const handleCategoryChange = (e) => {
+    e.preventDefault()
+    console.log('CLICKED CATEGORY', e.target.value);
+    setValues({ ...values, subs: [], category: e.target.value });
+    axios.get(`/api/category/subcategories/${e.target.value}`)
+      .then((res) => {
+        setSubOptions(res.data);
+      });
+    setShowSubCategories(true);
+};
   // const handleLessonImage = (e) => {
   //   let file = e.target.files[0];
   //   setImageLessonPreview(window.URL.createObjectURL(file));
@@ -307,6 +325,12 @@ const CourseEdit = () => {
           preview={preview}
           uploadButtonText={uploadButtonText}
           editPage={true}
+          
+          handleCategoryChange={handleCategoryChange}
+
+          categories={categories}
+          showSubCategories={showSubCategories}
+          subOptions={subOptions}
         />
       </div>
       {/* <pre>{JSON.stringify(values, null, 4)}</pre>

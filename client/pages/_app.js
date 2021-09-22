@@ -20,6 +20,11 @@ function MyApp({ Component, pageProps }) {
        </Provider>
     )
  } else if (
+   asPath === "/instructor" ||
+   asPath === "/instructor/personal-details" ||
+   asPath === "/instructor/course/create" ||
+   asPath === "/instructor/revenue" ||
+   asPath === `/instructor/course/view/${slug}` ||
    asPath === "/admin" || 
    asPath === "/admin/users" || 
    asPath === "/admin/applicants" || 
@@ -28,7 +33,10 @@ function MyApp({ Component, pageProps }) {
    asPath === "/about" || 
    asPath === "/admin/category" || 
    asPath === "/admin/category/create" ||
-   asPath === `/admin/category/edit/${slug}`
+   asPath === `/admin/category/edit/${slug}` ||
+   asPath === "/admin/subcategory/create" ||
+   asPath === `admin/subcategory/edit/${slug}` ||
+   asPath === "/user" 
   ) {
     return(
       <Provider>

@@ -22,11 +22,12 @@ const {
     putCategory,
     removeCategory,
     listCategories,
-    createSubCategory,
+    createSubcategory,
     getSubCategory,
     putSubCategory,
     removeSubCategory,
     listSubCategories,
+    getSubs,
 } = require("../controllers/admin");
 router.get("/get-covercontent", getCoverContent)
 
@@ -48,11 +49,12 @@ router.delete("/admin/remove-category/:slug", requireSignin, removeCategory);
 router.get("/admin/categories", requireSignin, listCategories)
 
 // subcategories
-router.post("/admin/create-subcategory", requireSignin, createSubCategory);
+router.post("/admin/createsubcategory", requireSignin, createSubcategory);
 router.get("/admin/get-subcategory/:slug", requireSignin, getSubCategory);
 router.put("/admin/update-subcategory/:slug", requireSignin, putSubCategory);
 router.delete("/admin/remove-subcategory/:slug", requireSignin, removeSubCategory);
 router.get("/admin/subcategories", requireSignin, listSubCategories);
+router.get("/category/subcategories/:category", getSubs);
 
 
 

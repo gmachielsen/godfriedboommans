@@ -10,6 +10,10 @@ const CourseCreateForm = ({
   setValues,
   preview,
   uploadButtonText,
+  categories,
+  handleCategoryChange,
+  showSubCategories,
+  subOptions,
   handleImageRemove = (f) => f,
   editPage = false,
 }) => {
@@ -31,7 +35,7 @@ const CourseCreateForm = ({
          onChange={handleChange}
        />
      </div>
-
+      <br />
      <div className="form-group">
        <textarea
          name="description"
@@ -42,7 +46,45 @@ const CourseCreateForm = ({
          onChange={handleChange}
        ></textarea>
      </div>
-
+     <br />
+     <div className="form-group">
+            <label>Parent category</label>
+            <select
+              name="category"
+              className="form-control"
+              // value={values.category}
+              onChange={handleCategoryChange}            
+            >
+            <option>Please select</option>
+            {categories.length > 0 && 
+              categories.map((c) => (
+                <option key={c._id} value={c._id}>
+                    {c.name}
+                </option>
+            ))}
+            </select>
+      </div>
+      <br />
+      {showSubCategories && (
+            <div>
+                <label>Sub Categories</label>
+                <Select
+                    mode="multiple"
+                    style={{width: '100%'}}
+                    placeholder="Please select"
+                    value={values.subcategories}
+                    onChange={(value) => setValues({...values, subcategories: value})}
+                >
+                    {subOptions.length && 
+                        subOptions.map((s) => (
+                        <Option key={s._id} value={s._id}>
+                            {s.name}
+                        </Option>
+                        ))}
+                </Select>
+            </div>
+            )}
+    <br />
      <div className="form-row">
        <div className="col">
          <div className="form-group">
@@ -57,7 +99,7 @@ const CourseCreateForm = ({
            </Select>
          </div>
        </div>
-
+      <br />
        {values.paid && (
          <div className="form-group">
            <Select
@@ -73,16 +115,7 @@ const CourseCreateForm = ({
        )}
      </div>
 
-     <div className="form-group">
-       <input
-         type="text"
-         name="category"
-         className="form-control"
-         placeholder="Category"
-         value={values.category}
-         onChange={handleChange}
-       />
-     </div>
+
 
      <div className="form-row">
        <div className="col">

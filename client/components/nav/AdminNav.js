@@ -23,7 +23,10 @@ const AdminNav = () => {
                 <a className={`nav-link ${current === "/admin/cover" && "active"}`}>CoverContent</a>
             </Link>
             <Link href="/admin/category/create">
-                <a className={`nav-link ${current === "/admin/category" && "active"}`}>Categories</a>
+                <a className={`nav-link ${current === "/admin/category/create" && "active"}`}>Categories</a>
+            </Link>
+            <Link href="/admin/subcategory/create">
+                <a className={`nav-link ${current === "/admin/subcategory/create" && "active"}`}>Subcategories</a>
             </Link>
         </div>
     );
